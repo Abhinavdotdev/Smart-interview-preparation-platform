@@ -1,7 +1,10 @@
+// Updated MockInterview.jsx
 import React, { useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const MockInterview = () => {
+  const { topic } = useParams(); // e.g., "dsa", "hr", etc.
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [result, setResult] = useState(null);
@@ -17,12 +20,12 @@ const MockInterview = () => {
 
   const handleSubmit = async () => {
     if (!question || !answer) return alert("Please enter both fields.");
-
     setLoading(true);
     try {
       const res = await axios.post("/api/mock/mock-interview", {
         question,
         answer,
+        topic, // send the topic to backend
       });
       setResult(JSON.parse(res.data.result));
     } catch (error) {
@@ -35,7 +38,9 @@ const MockInterview = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-4">
-      <h2 className="text-2xl font-semibold mb-4">Mock Interview</h2>
+      <h2 className="text-2xl font-semibold mb-4 capitalize">
+        {topic ? `${topic} Mock Interview` : "Mock Interview"}
+      </h2>
 
       <textarea
         placeholder="Enter Interview Question"

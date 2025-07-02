@@ -13,6 +13,8 @@ import Dashboard from "./pages/Dashboard";
 import InterviewFeedback from "./pages/InterviewFeedback";
 import MockInterview from "./pages/MockInterview";
 import ResumeAnalyzer from "./pages/ResumeAnalyzer";
+// import DSA from './pages/DSA'; // adjust path based on your folder
+
 
 function App() {
   return (
@@ -24,10 +26,10 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/resume-upload" element={<ResumeUpload />} />
 
-        <Route path="/dsa" element={<DSA />} />
-        <Route path="/hr" element={<HR />} />
-        <Route path="/frontend" element={<Frontend />} />
-        <Route path="/backend" element={<Backend />} />
+        <Route path="/mock/dsa" element={<DSA />} />
+        <Route path="/mock/hr" element={<HR />} />
+        <Route path="/mock/frontend" element={<Frontend />} />
+        <Route path="/mock/backend" element={<Backend />} />
         <Route path="mock-interview" element={<MockInterview />} />
         <Route path="/selection-predictor" element={<SelectionPredictor />} />
         <Route path="/ai-feedback" element={<InterviewFeedback />} />

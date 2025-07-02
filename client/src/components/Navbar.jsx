@@ -1,29 +1,57 @@
-// import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <nav className=" bg-violet-900 text-white px-6 py-4 flex justify-between items-center">
-      <h2 role="img" aria-label="trophy" className="text-white text-xl font-bold">🏆 Mockify</h2>
-      <div className="space-x-4">
-        <Link to="/" className="hover:underline">Home</Link>
-        <Link to="/login" className="hover:underline">Login</Link>
-        <Link to="/register" className="hover:underline">Register</Link>
-        <Link to="/dashboard" className="hover:underline">Dashboard</Link>
-        <Link to="/mock-interview" className="hover:underline">Mock Interview</Link>
-        <Link to="/resume-upload">Resume Analyzer</Link>
+    <nav className="bg-purple-800 text-white shadow-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        
+        {/* Logo */}
+        <div className="text-2xl font-bold flex items-center gap-2">
+          <span role="img" aria-label="trophy">🏆</span> Mockify
+        </div>
 
-         <ul className="flex space-x-4">
-    <li><Link to="/dashboard">Dashboard</Link></li>
-    <li><Link to="/dsa">DSA</Link></li>
-    <li><Link to="/hr">HR</Link></li>
-    <li><Link to="/frontend">Frontend</Link></li>
-    <li><Link to="/backend">Backend</Link></li>
-  </ul>
+        {/* Desktop Menu */}
+        <div className="hidden md:flex gap-6 font-medium text-sm items-center">
+          <Link to="/">Home</Link>
+          <Link to="/login">Login</Link>
+          <Link to="/register">Register</Link>
+          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/mock-interview">Mock Interview</Link>
+          <Link to="/resume-analyzer">Resume Analyzer</Link>
+          <Link to="/mock/dsa">DSA</Link>
+          <Link to="/mock/hr">HR</Link>
+          <Link to="/mock/frontend">Frontend</Link>
+          <Link to="/mock/backend">Backend</Link>
 
+        </div>
+
+        {/* Hamburger Menu (mobile only) */}
+        <div className="block md:hidden">
+          <button onClick={() => setIsOpen(!isOpen)} className="text-white">
+            {isOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="md:hidden px-6 pb-4 space-y-3 font-medium text-sm">
+          <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
+          <Link to="/login" onClick={() => setIsOpen(false)}>Login</Link>
+          <Link to="/register" onClick={() => setIsOpen(false)}>Register</Link>
+          <Link to="/dashboard" onClick={() => setIsOpen(false)}>Dashboard</Link>
+          <Link to="/mock-interview" onClick={() => setIsOpen(false)}>Mock Interview</Link>
+          <Link to="/resume-analyzer" onClick={() => setIsOpen(false)}>Resume Analyzer</Link>
+          <Link to="/mock/dsa" onClick={() => setIsOpen(false)}>DSA</Link>
+          <Link to="/mock/hr" onClick={() => setIsOpen(false)}>HR</Link>
+          <Link to="/mock/frontend" onClick={() => setIsOpen(false)}>Frontend</Link>
+          <Link to="/mock/backend" onClick={() => setIsOpen(false)}>Backend</Link>
+        </div>
+      )}
     </nav>
   );
-};
-
-export default Navbar;
+}

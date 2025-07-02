@@ -1,33 +1,58 @@
-// routes/resumeRoutes.js
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const multer = require("multer");
-const path = require("path");
-const { analyzeResume } = require("../controllers/resumeController");
+const multer = require('multer');
 
-// Use in-memory storage (so req.file.buffer works)
-const storage = multer.memoryStorage();
+const upload = multer({ dest: 'uploads/' });
 
-// Allow only PDF and DOC/DOCX files
-const fileFilter = (req, file, cb) => {
-  const allowedTypes = /pdf|doc|docx/;
-  const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = allowedTypes.test(file.mimetype);
+// Route for file upload (used by ResumeUpload.jsx)
+router.post('/analyze', upload.single('resume'), async (req, res) => {
+  try {
+    const file = req.file;
+    
+    if (!file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
 
-  if (extname && mimetype) {
-    cb(null, true);
-  } else {
-    cb(new Error("Only .pdf, .doc, and .docx files are allowed"));
+    // Your Gemini AI analysis logic here for file
+    const mockAnalysis = {
+      ResumeScore: 85,
+      SummaryOfStrengths: "Strong technical skills",
+      SuggestionsForImprovement: "Add more achievements",
+      JobRolesBestMatched: "Full Stack Developer"
+    };
+
+    res.json(mockAnalysis);
+    
+  } catch (error) {
+    console.error('Error analyzing resume:', error);
+    res.status(500).json({ error: 'Failed to analyze resume' });
   }
-};
-
-const upload = multer({
-  storage,
-  fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 }, // Optional: max 5MB
 });
 
-// POST route using in-memory file upload
-router.post("/analyze-resume", upload.single("resume"), analyzeResume);
+// Route for text analysis (used by ResumeAnalyzer.jsx)
+// Route for text analysis (used by ResumeAnalyzer.jsx)
+router.post('/analyze-text', async (req, res) => {
+  try {
+    const { resumeText } = req.body;
+    
+    if (!resumeText) {
+      return res.status(400).json({ error: 'No resume text provided' });
+    }
+
+    // Enhanced mock analysis with better structure
+    const mockAnalysis = {
+      score: Math.floor(Math.random() * 20) + 75, // Random score 75-95
+      strengths: "Strong technical skills and relevant experience",
+      suggestions: "Add more quantifiable achievements and industry keywords",
+      roles: "Full Stack Developer, Software Engineer"
+    };
+
+    res.json(mockAnalysis);
+    
+  } catch (error) {
+    console.error('Error analyzing resume text:', error);
+    res.status(500).json({ error: 'Failed to analyze resume text' });
+  }
+});
 
 module.exports = router;

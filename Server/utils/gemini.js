@@ -1,41 +1,46 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+require("dotenv").config();
 
-// Instantiate with API key from .env
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-// Main Function
+// ✅ Gemini JSON-compatible feedback generator
 const getInterviewFeedback = async (userAnswer) => {
   const prompt = `
-You are an expert AI interview coach. I will give you a candidate's response to an interview question.
+You are an expert AI interview coach. I will give you a candidate's answer.
 
-Please evaluate the answer and provide:
-1. Clarity Score out of 10 – How clearly did the candidate express their thoughts?
-2. Technical Depth Score out of 10 – How technically strong and in-depth was their explanation?
-3. Confidence Score out of 10 – Based on the tone and flow, how confident does the candidate sound?
-4. Emoji Feedback Summary:
-   - 😃 Excellent
-   - 🙂 Good
-   - 😐 Average
-   - 😟 Needs Improvement
+Please evaluate it and respond ONLY in the following JSON format:
 
-Also include:
-5. One-line Feedback for each of the above categories.
+{
+  "clarity": number (0-10),
+  "technicalDepth": number (0-10),
+  "confidence": number (0-10),
+  "feedback": "one-line summary suggestion"
+}
 
----
-Candidate's Answer: 
+Candidate's Answer:
 ${userAnswer}
 `;
 
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
     const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = await response.text();
 
-    return text;
+    const response = await result.response;
+    if (!response) {
+      console.error("No response from Gemini API");
+      return null;
+    }
+
+    const text = await response.text();
+    console.log("Raw Gemini response:", text);
+
+    // ✅ Try parsing Gemini output to JSON
+    const parsed = JSON.parse(text);
+    return parsed;
+
   } catch (err) {
-    console.error("Error from Gemini API:", err.message);
-    return "Feedback could not be generated. Please try again.";
+    console.error("Gemini Error:", err.message);
+    return null;
   }
 };
 

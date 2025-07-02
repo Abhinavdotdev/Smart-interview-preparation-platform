@@ -13,7 +13,7 @@ function ResumeUpload() {
     formData.append("resume", file);
 
     try {
-      const res = await axios.post("http://localhost:5000/api/resume/upload", formData);
+      const res = await axios.post("http://localhost:5000/api/resume/analyze", formData);
       setAnalysis(res.data);
     } catch (err) {
       console.error(err);

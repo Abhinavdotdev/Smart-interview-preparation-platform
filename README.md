@@ -1,12 +1,33 @@
-# React + Vite
+# 🚀 Smart Interview Preparation Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An AI-powered MERN stack platform to help users intelligently prepare for interviews with real-time feedback, resume analysis, and personalized dashboards.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🎯 Features
 
-## Expanding the ESLint configuration
+- 🧠 **AI-Powered Mock Interviews**
+- 📄 **Resume Strength Analyzer**
+- 📊 **Selection Chance Prediction (with percentage)**
+- 😃 **Real-time AI Interview Feedback with Emoji Ratings**
+- 📈 **Personalized Dashboard**
+- 🔥 **Daily Practice Streak Tracker**
+- 🧩 **Topic-wise Sections** (DSA, HR, Frontend, Backend, Marketing)
+- 💼 **Job Role Fit Analyzer**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠 Tech Stack
+
+| Layer     | Tech Used                        |
+|-----------|----------------------------------|
+| Frontend  | React (Vite), Tailwind CSS       |
+| Backend   | Node.js, Express.js              |
+| Database  | MongoDB                          |
+| AI APIs   | Google Gemini API, Whisper       |
+| Hosting   | Vercel (Frontend), Render (Backend)
+
+---
+
+## 📁 Project Structure
+

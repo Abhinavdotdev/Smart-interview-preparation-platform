@@ -10,6 +10,9 @@ exports.handleMockInterview = async (req, res) => {
   try {
     const combinedAnswer = `Question: ${question}\nAnswer: ${answer}`;
     const result = await getInterviewFeedback(combinedAnswer);
+
+    console.log("Gemini AI Feedback:", result); // ✅ for debugging
+
     res.json({ result });
   } catch (err) {
     console.error("Mock interview error:", err.message);
